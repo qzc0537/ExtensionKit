@@ -40,7 +40,7 @@ fun Context.toast(
             toast.setGravity(gravity, xOffset, yOffset)
             toast.show()
         } else {
-            if (text == null || text.isEmpty()) true
+            if (text.isEmpty()) return
             toast.setText(text)
             toast.duration = duration
             toast.setGravity(gravity, xOffset, yOffset)

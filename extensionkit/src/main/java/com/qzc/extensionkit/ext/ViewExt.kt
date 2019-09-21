@@ -5,7 +5,6 @@ import android.content.ClipData
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.Button
@@ -69,16 +68,16 @@ fun View.px2dp(px: Int): Int {
 }
 
 fun Context.color(id: Int): Int {
-    return if (Build.VERSION.SDK_INT >= 23) getColor(id) else resources.getColor(id)
+    return ContextCompat.getColor(this, id)
 }
 
 fun Context.drawable(id: Int): Drawable {
-    return if (Build.VERSION.SDK_INT >= 23) getDrawable(id)!! else resources.getDrawable(id)!!
+    return ContextCompat.getDrawable(this, id)!!
 }
 
 fun Context.copyToClipboard(text: String, label: String = "ViewExt") {
     val clipData = ClipData.newPlainText(label, text)
-    clipboardManager.primaryClip = clipData
+    clipboardManager?.primaryClip = clipData
 }
 
 fun CharSequence?.notNullEmpty(): Boolean {
