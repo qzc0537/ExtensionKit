@@ -22,7 +22,7 @@ allprojects {
 2.app build.gradle下添加依赖 ：
 
 ```
-implementation 'com.github.qzc0537:ExtensionKit:1.0.1'
+implementation 'com.github.qzc0537:ExtensionKit:1.0.3'
 ```
 
 3.愉快的使用：
