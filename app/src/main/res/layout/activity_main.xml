@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/dialogExtBtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="100dp"
+        android:text="dialogExtBtn1"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/dialogExtBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="100dp"
+        android:text="dialogExtBtn2"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/dialogExtBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="100dp"
+        android:text="dialogExtBtn3"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/snackBarExtBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="100dp"
+        android:text="dialogExtBtn1"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/doAsyncBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="100dp"
+        android:text="dialogExtBtn1"
+        android:textAllCaps="false" />
+
+</LinearLayout>
