@@ -88,6 +88,10 @@ fun CharSequence?.nullOrEmpty(): Boolean {
     return this == null || this.isEmpty()
 }
 
+fun <T> Any?.notNull(yes: () -> T, no: () -> T): T {
+    return if (this != null) yes() else no()
+}
+
 fun TextView.drawableLeft(resId: Int) {
     this.setCompoundDrawables(context.drawable(resId), null, null, null)
 }

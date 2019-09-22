@@ -25,6 +25,8 @@ object EkConfigs {
     var snackBarBgColor: Int = 0
     @JvmField
     var snackBarTextColor: Int = 0
+    @JvmField
+    var showActivityLife: Boolean = true
 
     /**
      * Application中初始化

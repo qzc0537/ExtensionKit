@@ -41,7 +41,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:minWidth="100dp"
-        android:text="dialogExtBtn1"
+        android:text="snackBarExtBtn"
         android:textAllCaps="false" />
 
     <Button
@@ -50,7 +50,16 @@
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:minWidth="100dp"
-        android:text="dialogExtBtn1"
+        android:text="doAsyncBtn"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/permissionBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:minWidth="100dp"
+        android:text="permissionBtn"
         android:textAllCaps="false" />
 
 </LinearLayout>

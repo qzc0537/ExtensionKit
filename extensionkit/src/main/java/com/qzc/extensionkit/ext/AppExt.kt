@@ -27,12 +27,29 @@ val phoneModel = Build.MODEL
 val phoneBrand = Build.BRAND
 val phoneManufacture = Build.MANUFACTURER
 val phoneProduct = Build.PRODUCT
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-val phoneSupoortAbis = Build.SUPPORTED_ABIS
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-val phoneSupoort32BitAbis = Build.SUPPORTED_32_BIT_ABIS
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-val phoneSupoort64BitAbis = Build.SUPPORTED_64_BIT_ABIS
+val phoneSupoortAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    Build.SUPPORTED_ABIS
+} else {
+    arrayOf<String>()
+}
+val phoneSupoort32BitAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    Build.SUPPORTED_32_BIT_ABIS
+} else {
+    arrayOf<String>()
+}
+val phoneSupoort64BitAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    Build.SUPPORTED_64_BIT_ABIS
+} else {
+    arrayOf<String>()
+}
+
+val Context.versionCode: Long
+    get() = with(packageManager.getPackageInfo(packageName, 0)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) longVersionCode else versionCode.toLong()
+    }
+
+val Context.versionName: String
+    get() = packageManager.getPackageInfo(packageName, 0).versionName
 
 /**
  *是否主线程
@@ -60,30 +77,3 @@ fun Context.getCurrProcessName(): String {
     }
     return ""
 }
-
-/**
- * 得到软件版本号
- */
-fun Context.getVersionCode(): Int {
-    var versionCode = -1
-    try {
-        versionCode = packageManager.getPackageInfo(packageName, 0).versionCode
-    } catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
-    }
-    return versionCode
-}
-
-/**
- * 得到软件显示版本信息
- */
-fun Context.getVersionName(): String {
-    var versionName = ""
-    try {
-        versionName = packageManager.getPackageInfo(packageName, 0).versionName
-    } catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
-    }
-    return versionName
-}
-

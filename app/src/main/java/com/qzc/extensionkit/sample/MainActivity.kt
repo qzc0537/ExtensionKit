@@ -1,11 +1,13 @@
 package com.qzc.extensionkit.sample
 
+import android.Manifest
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import com.qzc.extensionkit.EkConfigs
 import com.qzc.extensionkit.ext.*
+import com.qzc.extensionkit.permission.request
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -70,6 +72,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        permissionBtn.onClick {
+            request(Manifest.permission.CAMERA) {
+                onGranted { toast("获取权限成功") }
+                onDenied { toast("获取权限失败") }
+                onShowRationale {
+                    alert {
+                        setTitle("请求权限")
+                        setMessage("我们需要相机权限")
+                        setPositiveButton("确定") { dialog, which -> it.retry() }
+                        setNegativeButton("取消") { dialog, which -> }
+                    }
+                }
+                onNeverAskAgain { goToAppInfoPage() }
+            }
+        }
     }
 
     private fun otherApis() {
@@ -88,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (afterL) {
-            logi("versionName->" + getVersionName())
+            logi("versionName->$versionName")
             for (abi in phoneSupoortAbis) {
                 logi(abi)
             }
