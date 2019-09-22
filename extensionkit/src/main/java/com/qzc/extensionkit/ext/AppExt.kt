@@ -27,17 +27,17 @@ val phoneModel = Build.MODEL
 val phoneBrand = Build.BRAND
 val phoneManufacture = Build.MANUFACTURER
 val phoneProduct = Build.PRODUCT
-val phoneSupoortAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+val phoneSupportAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     Build.SUPPORTED_ABIS
 } else {
     arrayOf<String>()
 }
-val phoneSupoort32BitAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+val phoneSupport32BitAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     Build.SUPPORTED_32_BIT_ABIS
 } else {
     arrayOf<String>()
 }
-val phoneSupoort64BitAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+val phoneSupport64BitAbis = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     Build.SUPPORTED_64_BIT_ABIS
 } else {
     arrayOf<String>()

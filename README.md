@@ -116,7 +116,7 @@ private fun otherApis() {
 
     if (afterL) {
         logi("versionName->" + getVersionName())
-        for (abi in phoneSupoortAbis) {
+        for (abi in phoneSupportAbis) {
             logi(abi)
         }
     }

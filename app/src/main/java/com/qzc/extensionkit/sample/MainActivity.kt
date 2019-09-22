@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
         if (afterL) {
             logi("versionName->$versionName")
-            for (abi in phoneSupoortAbis) {
+            for (abi in phoneSupportAbis) {
                 logi("versionName->$abi")
             }
         }
