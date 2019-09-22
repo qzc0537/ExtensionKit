@@ -83,6 +83,21 @@ doAsyncBtn.onClick {
         }
     }
 }
+permissionBtn.onClick {
+    request(Manifest.permission.CAMERA) {
+        onGranted { toast("获取权限成功") }
+        onDenied { toast("获取权限失败") }
+        onShowRationale {
+            alert {
+                setTitle("请求权限")
+                setMessage("我们需要相机权限")
+                setPositiveButton("确定") { dialog, which -> it.retry() }
+                setNegativeButton("取消") { dialog, which -> }
+            }
+        }
+        onNeverAskAgain { goToAppInfoPage() }
+    }
+}
 
 private fun otherApis() {
     logi("Hello")
@@ -105,4 +120,12 @@ private fun otherApis() {
             logi(abi)
         }
     }
+
+    logi("screenWidth->$screenWidth screenHeight->$screenHeight")
+    dp2px(10)
+    color(R.color.colorPrimary)
+    drawable(R.mipmap.ic_launcher)
+    if ("ExtensionKit".notNullEmpty()) toast("not empty") else toast("null or empty")
+    val obj = null
+    obj.notNull({ toast("not null") }, { toast("null") })
 }

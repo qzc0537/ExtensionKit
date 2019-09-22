@@ -107,8 +107,16 @@ class MainActivity : AppCompatActivity() {
         if (afterL) {
             logi("versionName->$versionName")
             for (abi in phoneSupoortAbis) {
-                logi(abi)
+                logi("versionName->$abi")
             }
         }
+
+        logi("screenWidth->$screenWidth screenHeight->$screenHeight")
+        dp2px(10)
+        color(R.color.colorPrimary)
+        drawable(R.mipmap.ic_launcher)
+        if ("ExtensionKit".notNullEmpty()) toast("not empty") else toast("null or empty")
+        val obj = null
+        obj.notNull({ toast("not null") }, { toast("null") })
     }
 }
