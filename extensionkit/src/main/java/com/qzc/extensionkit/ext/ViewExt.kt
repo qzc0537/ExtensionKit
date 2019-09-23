@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.Button
+import android.widget.RadioButton
 import android.widget.TextView
 
 /**
@@ -121,6 +122,22 @@ fun Button.drawableRight(resId: Int) {
 }
 
 fun Button.drawableBottom(resId: Int) {
+    this.setCompoundDrawables(null, null, null, context.drawable(resId))
+}
+
+fun RadioButton.drawableLeft(resId: Int) {
+    this.setCompoundDrawables(context.drawable(resId), null, null, null)
+}
+
+fun RadioButton.drawableTop(resId: Int) {
+    this.setCompoundDrawables(null, context.drawable(resId), null, null)
+}
+
+fun RadioButton.drawableRight(resId: Int) {
+    this.setCompoundDrawables(null, null, context.drawable(resId), null)
+}
+
+fun RadioButton.drawableBottom(resId: Int) {
     this.setCompoundDrawables(null, null, null, context.drawable(resId))
 }
 

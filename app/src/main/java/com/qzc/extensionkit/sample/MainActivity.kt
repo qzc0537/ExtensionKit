@@ -9,6 +9,7 @@ import com.qzc.extensionkit.EkConfigs
 import com.qzc.extensionkit.ext.*
 import com.qzc.extensionkit.permission.request
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         EkConfigs.initToast(application, false)
         EkConfigs.snackBarBgColor = color(R.color.colorPrimary)
         EkConfigs.snackBarTextColor = Color.WHITE
+
 
         dialogExtBtn1.onClick {
             alert {
@@ -118,5 +120,14 @@ class MainActivity : AppCompatActivity() {
         if ("ExtensionKit".notNullEmpty()) toast("not empty") else toast("null or empty")
         val obj = null
         obj.notNull({ toast("not null") }, { toast("null") })
+
+        val bitmap = decodeResource(R.mipmap.ic_launcher)
+        bitmap.compressQuality(80)
+        val data = bitmap.bitmapToByte()
+        data.compressSampledFromByte(20, 20)
+        val file = File(externalCacheDir, "launcher.jpg")
+        val file2 = File(getPictureDir(), "launcher.jpg")
+        saveToInternal(bitmap, file)
+        saveToGallery(bitmap, file2)
     }
 }

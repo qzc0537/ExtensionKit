@@ -1,6 +1,10 @@
 package com.qzc.extensionkit.ext
 
+import android.content.Context
+import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import android.support.v4.content.FileProvider
 import android.text.TextUtils
 import com.qzc.extensionkit.utils.getMimeType
 import java.io.File
@@ -30,7 +34,7 @@ fun isSDCardMounted(): Boolean {
  *
  * @return /storage/emulated/0
  */
-fun getSDCardRoot(): File? {
+fun getSDCardDir(): File? {
     var root: File? = null
     if (isSDCardMounted()) {
         root = Environment.getExternalStorageDirectory()
@@ -43,7 +47,7 @@ fun getSDCardRoot(): File? {
  *
  * @return /storage/emulated/0/Pictures
  */
-fun getPictureCache(): File? {
+fun getPictureDir(): File? {
     var cachePath: File? = null
     if (isSDCardMounted()) {
         cachePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
@@ -285,5 +289,13 @@ fun copyFolder(
         } else {
             copyFile(subFile, File(destFolder, subFile.name), overwrite, func)
         }
+    }
+}
+
+fun Context.fromFile(file: File, authority: String = packageName): Uri {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        FileProvider.getUriForFile(this, authority, file)
+    } else {
+        Uri.fromFile(file)
     }
 }

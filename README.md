@@ -128,4 +128,13 @@ private fun otherApis() {
     if ("ExtensionKit".notNullEmpty()) toast("not empty") else toast("null or empty")
     val obj = null
     obj.notNull({ toast("not null") }, { toast("null") })
+    
+    val bitmap = decodeResource(R.mipmap.ic_launcher)
+    bitmap.compressQuality(80)
+    val data = bitmap.bitmapToByte()
+    data.compressSampledFromByte(20, 20)
+    val file = File(externalCacheDir, "launcher.jpg")
+    val file2 = File(getPictureDir(), "launcher.jpg")
+    saveToInternal(bitmap, file)
+    saveToGallery(bitmap, file2)
 }
