@@ -11,6 +11,7 @@ import android.graphics.drawable.NinePatchDrawable
 import android.R.drawable
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 
 
 /**
@@ -41,9 +42,9 @@ fun Bitmap.bitmapToDrawable(context: Context): Drawable {
 }
 
 fun Drawable.drawableToBitmap(): Bitmap? {
-    when {
-        this is BitmapDrawable -> return this.bitmap
-        this is NinePatchDrawable -> {
+    when (this) {
+        is BitmapDrawable -> return this.bitmap
+        is NinePatchDrawable -> {
             val bitmap = Bitmap.createBitmap(
                 this.getIntrinsicWidth(),
                 this.getIntrinsicHeight(),
@@ -59,6 +60,14 @@ fun Drawable.drawableToBitmap(): Bitmap? {
         }
         else -> return null
     }
+}
+
+fun Bitmap.getBitmapSize(): Int {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//API 19
+        return allocationByteCount
+    }
+    // 在低版本中用一行的字节x高度
+    return rowBytes * height
 }
 
 /**

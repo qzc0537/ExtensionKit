@@ -32,7 +32,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$buildToolsVersion"
-    api "com.android.support:design:$buildToolsVersion"
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    api "com.android.support:design:$supportVersion"
     api 'com.hjq:toast:8.0'
 }
