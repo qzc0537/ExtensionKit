@@ -25,7 +25,7 @@ import java.text.DecimalFormat
  *
  * @return boolean true:挂载 false:未挂载
  */
-fun isSDCardMounted(): Boolean {
+fun Context.isSDCardMounted(): Boolean {
     return Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
 }
 
@@ -34,7 +34,7 @@ fun isSDCardMounted(): Boolean {
  *
  * @return /storage/emulated/0
  */
-fun getSDCardDir(): File? {
+fun Context.getSDCardDir(): File? {
     var root: File? = null
     if (isSDCardMounted()) {
         root = Environment.getExternalStorageDirectory()
@@ -47,7 +47,7 @@ fun getSDCardDir(): File? {
  *
  * @return /storage/emulated/0/Pictures
  */
-fun getPictureDir(): File? {
+fun Context.getPictureDir(): File? {
     var cachePath: File? = null
     if (isSDCardMounted()) {
         cachePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
@@ -58,7 +58,7 @@ fun getPictureDir(): File? {
 /**
  * 删除文件
  */
-fun deleteFile(path: String): Boolean {
+fun Context.delFile(path: String): Boolean {
     if (TextUtils.isEmpty(path)) {
         return false
     }
@@ -78,7 +78,7 @@ fun deleteFile(path: String): Boolean {
 /**
  * 递归删除子文件
  */
-fun recursiveDeleteFile(path: String) {
+fun Context.recursiveDeleteFile(path: String) {
     val file = File(path)
     if (file.exists()) {
         if (file.isDirectory) {
@@ -96,7 +96,7 @@ fun recursiveDeleteFile(path: String) {
 /**
  * 递归删除文件和文件夹
  */
-fun recursiveDeleteDir(file: File) {
+fun Context.recursiveDeleteDir(file: File) {
     if (file.isFile) {
         file.delete()
         return
@@ -298,4 +298,30 @@ fun Context.fromFile(file: File, authority: String = packageName): Uri {
     } else {
         Uri.fromFile(file)
     }
+}
+
+fun File.makeDir(): Boolean {
+    try {
+        return if (!this.exists()) {
+            this.mkdir()
+            true
+        } else {
+            true
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return false
+}
+
+fun Context.makeDir(pathname: String): File? {
+    val file = File(pathname)
+    val res = file.makeDir()
+    return if (res) file else null
+}
+
+fun Context.makeDir(parent: String, child: String): File? {
+    val file = File(parent, child)
+    val res = file.makeDir()
+    return if (res) file else null
 }
