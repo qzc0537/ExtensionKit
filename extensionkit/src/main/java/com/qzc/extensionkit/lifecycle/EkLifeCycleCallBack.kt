@@ -13,8 +13,8 @@ import com.qzc.extensionkit.ext.logi
 class EkLifeCycleCallBack : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        logi("onActivityCreated : ${activity.localClassName}")
-        if (EkConfigs.showActivityLife) ActivityManager.addActivity(activity)
+        if (EkConfigs.showActivityLife) logi("onActivityCreated : ${activity.localClassName}")
+        ActivityManager.addActivity(activity)
     }
 
     override fun onActivityStarted(activity: Activity) {

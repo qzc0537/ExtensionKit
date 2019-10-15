@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable
 import java.io.*
 import android.graphics.PixelFormat
 import android.graphics.drawable.NinePatchDrawable
-import android.R.drawable
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
@@ -73,10 +72,10 @@ fun Bitmap.getBitmapSize(): Int {
 /**
  * 保存图片到应用存储中
  */
-fun Context.saveToInternal(bitmap: Bitmap, file: File): Boolean {
+fun Context.saveToInternal(bitmap: Bitmap, desFile: File): Boolean {
     var fos: FileOutputStream? = null
     try {
-        fos = FileOutputStream(file)
+        fos = FileOutputStream(desFile)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
         fos.flush()
         return true
