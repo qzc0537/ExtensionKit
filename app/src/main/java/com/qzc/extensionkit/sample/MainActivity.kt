@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        EkConfigs.initToast(application, false)
+        EkConfigs.initToast(application, true, null)
         EkConfigs.snackBarBgColor = color(R.color.colorPrimary)
         EkConfigs.snackBarTextColor = Color.WHITE
 

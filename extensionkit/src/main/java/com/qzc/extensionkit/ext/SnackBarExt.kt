@@ -4,6 +4,7 @@ import android.support.annotation.NonNull
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.view.View
+import android.view.ViewGroup
 import com.qzc.extensionkit.EkConfigs
 
 
@@ -22,8 +23,8 @@ fun makeSnackBar(view: View, @StringRes resId: Int, duration: Int): Snackbar {
     return makeSnackBar(view, view.context.getString(resId), duration)
 }
 
-fun View.snackBar(@StringRes resId: Int): Snackbar {
-    val snackBar = makeSnackBar(this, resId, Snackbar.LENGTH_SHORT)
+fun View.snackBar(@StringRes text: Int): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_SHORT)
     snackBar.show()
     return snackBar
 }
@@ -34,8 +35,8 @@ fun View.snackBar(@NonNull text: CharSequence): Snackbar {
     return snackBar
 }
 
-fun View.snackBarLong(@StringRes resId: Int): Snackbar {
-    val snackBar = makeSnackBar(this, resId, Snackbar.LENGTH_LONG)
+fun View.snackBarLong(@StringRes text: Int): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_LONG)
     snackBar.show()
     return snackBar
 }
@@ -46,13 +47,49 @@ fun View.snackBarLong(@NonNull text: CharSequence): Snackbar {
     return snackBar
 }
 
-fun View.snackBarIndefinite(@StringRes resId: Int): Snackbar {
-    val snackBar = makeSnackBar(this, resId, Snackbar.LENGTH_INDEFINITE)
+fun View.snackBarIndefinite(@StringRes text: Int): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_INDEFINITE)
     snackBar.show()
     return snackBar
 }
 
 fun View.snackBarIndefinite(@NonNull text: CharSequence): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_INDEFINITE)
+    snackBar.show()
+    return snackBar
+}
+
+fun ViewGroup.snackBar(@StringRes text: Int): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_SHORT)
+    snackBar.show()
+    return snackBar
+}
+
+fun ViewGroup.snackBar(@NonNull text: CharSequence): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_SHORT)
+    snackBar.show()
+    return snackBar
+}
+
+fun ViewGroup.snackBarLong(@StringRes text: Int): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_LONG)
+    snackBar.show()
+    return snackBar
+}
+
+fun ViewGroup.snackBarLong(@NonNull text: CharSequence): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_LONG)
+    snackBar.show()
+    return snackBar
+}
+
+fun ViewGroup.snackBarIndefinite(@StringRes text: Int): Snackbar {
+    val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_INDEFINITE)
+    snackBar.show()
+    return snackBar
+}
+
+fun ViewGroup.snackBarIndefinite(@NonNull text: CharSequence): Snackbar {
     val snackBar = makeSnackBar(this, text, Snackbar.LENGTH_INDEFINITE)
     snackBar.show()
     return snackBar

@@ -12,15 +12,15 @@ import com.hjq.toast.ToastUtils
 object EkConfigs {
 
     @JvmField
-    var toastUseSystem: Boolean = false
+    var logTag: String = "LogExt"
+    @JvmField
+    var toastUseSystem: Boolean = true
     @JvmField
     var toastGravity: Int = Gravity.BOTTOM
     @JvmField
     var toastXOffset: Int = 0
     @JvmField
     var toastYOffset: Int = 0
-    @JvmField
-    var logTag: String = "LogExt"
     @JvmField
     var snackBarBgColor: Int = 0
     @JvmField
@@ -32,16 +32,14 @@ object EkConfigs {
      * Application中初始化
      */
     @JvmStatic
-    fun initToast(application: Application, useSystem: Boolean = false) {
+    fun initToast(
+        application: Application,
+        useSystem: Boolean = toastUseSystem,
+        style: IToastStyle? = null
+    ) {
         ToastUtils.init(application)
+        if (style != null) ToastUtils.initStyle(style)
         toastUseSystem = useSystem
     }
 
-    /**
-     * Application中初始化
-     */
-    @JvmStatic
-    fun initStyle(style: IToastStyle) {
-        ToastUtils.initStyle(style)
-    }
 }
