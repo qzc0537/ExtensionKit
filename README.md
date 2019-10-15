@@ -27,7 +27,7 @@ implementation 'com.github.qzc0537:ExtensionKit:latestVersion'
 
 3.愉快的使用：
 ```
-EkConfigs.initToast(application, false)
+EkConfigs.initToast(application, true, null)
 EkConfigs.snackBarBgColor = color(R.color.colorPrimary)
 EkConfigs.snackBarTextColor = Color.WHITE
 
