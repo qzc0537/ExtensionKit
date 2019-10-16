@@ -106,11 +106,6 @@ class MainActivity : AppCompatActivity() {
             "id" to 5
         )
 
-        doAsync {
-            Thread.sleep(2000)
-            activityUiThread { toast("success")  }
-        }
-
         if (afterL) {
             logi("versionName->$versionName")
             for (abi in phoneSupportAbis) {
