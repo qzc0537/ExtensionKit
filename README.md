@@ -26,7 +26,40 @@ implementation 'com.github.qzc0537:ExtensionKit:latestVersion'
 ```
 
 3.愉快的使用：
-```
+### [权限相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/permission/PermissionExt.kt)
+
+### [Activity管理](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/permission/PermissionExt.kt)
+
+### [Activity相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/ActivityExt.kt)
+
+### [App相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/AppExt.kt)
+
+### [View相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/ViewExt.kt)
+
+### [Toast相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/ToastExt.kt)
+
+### [Log相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/LogExt.kt)
+
+### [Dialog相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/DialogExt.kt)
+
+### [Intent相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/IntentExt.kt)
+
+### [Bitmap相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/BitmapExt.kt)
+
+### [File相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/FileExt.kt)
+
+### [SP相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/SharedPreferencesExt.kt)
+
+### [SnackBar相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/SnackBarExt.kt)
+
+### [SystemManager相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/SystemServiceExt.kt)
+
+### [异步操作相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/AsyncExt.kt)
+
+### [加密相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionKit/src/main/java/com/qzc/extensionkit/ext/AesExt.kt)
+
+
+```kotlin
 EkConfigs.initToast(application, true, null)
 EkConfigs.snackBarBgColor = color(R.color.colorPrimary)
 EkConfigs.snackBarTextColor = Color.WHITE
@@ -103,7 +136,7 @@ private fun otherApis() {
     logi("Hello")
 
     toast("Hello")
-    val view = LayoutInflater.from(this).inflate(R.layout.layout_toast, null)
+    val view = layoutInflater.inflate(R.layout.layout_toast, null)
     toast(view)
 
     startActivity<MainActivity>("id" to 5)
@@ -114,21 +147,30 @@ private fun otherApis() {
         "id" to 5
     )
 
+    doAsync {
+        Thread.sleep(2000)
+        activityUiThread { toast("success")  }
+    }
+
     if (afterL) {
-        logi("versionName->" + getVersionName())
+        logi("versionName->$versionName")
         for (abi in phoneSupportAbis) {
-            logi(abi)
+            logi("versionName->$abi")
         }
     }
 
     logi("screenWidth->$screenWidth screenHeight->$screenHeight")
     dp2px(10)
+    string(R.string.app_name)
     color(R.color.colorPrimary)
     drawable(R.mipmap.ic_launcher)
     if ("ExtensionKit".notNullEmpty()) toast("not empty") else toast("null or empty")
     val obj = null
     obj.notNull({ toast("not null") }, { toast("null") })
-    
+
+    putValue("username", "John")
+    val username = getValue("username", "")
+
     val bitmap = decodeResource(R.mipmap.ic_launcher)
     bitmap.compressQuality(80)
     val data = bitmap.bitmapToByte()
@@ -138,3 +180,4 @@ private fun otherApis() {
     saveToInternal(bitmap, file)
     saveToGallery(bitmap, file2)
 }
+```

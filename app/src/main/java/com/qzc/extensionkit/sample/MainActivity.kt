@@ -106,6 +106,11 @@ class MainActivity : AppCompatActivity() {
             "id" to 5
         )
 
+        doAsync {
+            Thread.sleep(2000)
+            activityUiThread { toast("success")  }
+        }
+
         if (afterL) {
             logi("versionName->$versionName")
             for (abi in phoneSupportAbis) {
@@ -115,11 +120,15 @@ class MainActivity : AppCompatActivity() {
 
         logi("screenWidth->$screenWidth screenHeight->$screenHeight")
         dp2px(10)
+        string(R.string.app_name)
         color(R.color.colorPrimary)
         drawable(R.mipmap.ic_launcher)
         if ("ExtensionKit".notNullEmpty()) toast("not empty") else toast("null or empty")
         val obj = null
         obj.notNull({ toast("not null") }, { toast("null") })
+
+        putValue("username", "John")
+        val username = getValue("username", "")
 
         val bitmap = decodeResource(R.mipmap.ic_launcher)
         bitmap.compressQuality(80)

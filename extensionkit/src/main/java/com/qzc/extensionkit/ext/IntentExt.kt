@@ -14,6 +14,17 @@ import java.io.File
  * desc:
  */
 
+fun Context.getSettingsIntent(): Intent =
+    Intent().apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        action = Settings.ACTION_SETTINGS
+    }
+
+/** 跳转到设置页面 */
+fun Context.gotoSettingsPage(){
+    startActivity(getSettingsIntent())
+}
+
 fun Context.getAppInfoIntent(packageName: String = this.packageName): Intent =
     Intent(
         Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -71,7 +82,8 @@ fun Context.getInstallIntent(apkFile: File): Intent? {
 }
 
 /** 跳转到无障碍服务设置页面 */
-fun Context.goToAccessibilitySetting() = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).run { startActivity(this) }
+fun Context.goToAccessibilitySetting() =
+    Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).run { startActivity(this) }
 
 
 /**
