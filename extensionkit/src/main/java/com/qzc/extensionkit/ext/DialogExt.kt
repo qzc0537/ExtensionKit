@@ -24,7 +24,7 @@ fun Activity.alert(init: AlertDialog.Builder.() -> Unit): AlertDialog {
 }
 
 fun Fragment.alert(init: AlertDialog.Builder.() -> Unit): AlertDialog {
-    val builder = AlertDialog.Builder(activity!!)
+    val builder = AlertDialog.Builder(context)
     val dialog = builder.apply { init() }.create()
     dialog.show()
     return dialog

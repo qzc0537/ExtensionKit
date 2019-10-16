@@ -68,6 +68,10 @@ fun View.px2dp(px: Int): Int {
     return (px / scale + 0.5f).toInt()
 }
 
+fun Context.string(id: Int): String {
+    return this.getString(id)
+}
+
 fun Context.color(id: Int): Int {
     return ContextCompat.getColor(this, id)
 }
