@@ -26,39 +26,6 @@ implementation 'com.github.qzc0537:ExtensionKit:latestVersion'
 ```
 
 3.愉快的使用：
-### [权限相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/permission/PermissionExt.kt)
-
-### [Activity管理](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/permission/PermissionExt.kt)
-
-### [Activity相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/ActivityExt.kt)
-
-### [App相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AppExt.kt)
-
-### [View相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/ViewExt.kt)
-
-### [Toast相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/ToastExt.kt)
-
-### [Log相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/LogExt.kt)
-
-### [Dialog相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/DialogExt.kt)
-
-### [Intent相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/IntentExt.kt)
-
-### [Bitmap相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/BitmapExt.kt)
-
-### [File相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/FileExt.kt)
-
-### [SP相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SharedPreferencesExt.kt)
-
-### [SnackBar相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SnackBarExt.kt)
-
-### [SystemManager相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SystemServiceExt.kt)
-
-### [异步操作相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AsyncExt.kt)
-
-### [加密相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AesExt.kt)
-
-
 ```kotlin
 EkConfigs.initToast(application, true, null)
 EkConfigs.snackBarBgColor = color(R.color.colorPrimary)
@@ -176,3 +143,35 @@ private fun otherApis() {
     saveToGallery(bitmap, file2)
 }
 ```
+
+### [权限相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/permission/PermissionExt.kt)
+
+### [Activity管理](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/lifecycle/ActivityManager)
+
+### [Activity相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/ActivityExt.kt)
+
+### [App相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AppExt.kt)
+
+### [View相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/ViewExt.kt)
+
+### [Toast相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/ToastExt.kt)
+
+### [Log相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/LogExt.kt)
+
+### [Dialog相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/DialogExt.kt)
+
+### [Intent相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/IntentExt.kt)
+
+### [Bitmap相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/BitmapExt.kt)
+
+### [File相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/FileExt.kt)
+
+### [SP相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SharedPreferencesExt.kt)
+
+### [SnackBar相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SnackBarExt.kt)
+
+### [SystemManager相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SystemServiceExt.kt)
+
+### [异步操作相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AsyncExt.kt)
+
+### [加密相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AesExt.kt)
