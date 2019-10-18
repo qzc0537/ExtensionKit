@@ -128,7 +128,14 @@ private fun otherApis() {
     drawable(R.mipmap.ic_launcher)
     if ("ExtensionKit".notNullEmpty()) toast("not empty") else toast("null or empty")
     val obj = null
-    obj.notNull({ toast("not null") }, { toast("null") })
+   "notNullMethod".notNull(
+               {
+                   toast(this)
+               },
+               {
+                   toast("null")
+               }
+   )
 
     putValue("username", "John")
     val username = getValue("username", "")

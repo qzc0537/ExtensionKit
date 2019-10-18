@@ -93,9 +93,11 @@ fun CharSequence?.nullOrEmpty(): Boolean {
     return this == null || this.isEmpty()
 }
 
-fun <T> Any?.notNull(yes: () -> T, no: () -> T): T {
+inline fun <T> T?.notNull(yes: T.() -> Unit, no: () -> Unit) {
     return if (this != null) yes() else no()
 }
+
+inline fun <T, R> T?.notNull(block: T.() -> R): R? = this?.block()
 
 fun TextView.drawableLeft(resId: Int) {
     this.setCompoundDrawables(context.drawable(resId), null, null, null)
