@@ -27,7 +27,7 @@ fun Context.decodeResource(id: Int, options: BitmapFactory.Options? = null): Bit
     return BitmapFactory.decodeResource(resources, id, options)
 }
 
-fun decodeFile(path: String, options: BitmapFactory.Options? = null): Bitmap {
+fun Context.decodeFile(path: String, options: BitmapFactory.Options? = null): Bitmap {
     return BitmapFactory.decodeFile(path, options)
 }
 
