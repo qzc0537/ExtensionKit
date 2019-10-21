@@ -25,8 +25,12 @@ object EkConfigs {
     var snackBarBgColor: Int = 0
     @JvmField
     var snackBarTextColor: Int = 0
+    //显示Activity生命周期
     @JvmField
     var showActivityLife: Boolean = true
+    //控件重复点击时间
+    @JvmField
+    var repeatInTime: Int = 500
 
     /**
      * Application中初始化

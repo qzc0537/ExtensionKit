@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     toast("Amazing")
                 }
         }
-        doAsyncBtn.onClick {
+        doAsyncBtn.onClickUnit {
             doAsync {
                 Thread.sleep(1000)
                 activityUiThread {

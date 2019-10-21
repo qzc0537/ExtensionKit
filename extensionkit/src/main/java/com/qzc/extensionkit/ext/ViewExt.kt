@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.TextView
+import com.qzc.extensionkit.EkConfigs
 
 /**
  * created by qzc at 2019/09/18 18:08
@@ -18,7 +19,19 @@ import android.widget.TextView
 private var sViewId: Int = 0
 private var sLastTime: Long = 0L
 
-fun View.onClick(time: Int = 500, action: () -> Unit) {
+fun View.onClick(time: Int = EkConfigs.repeatInTime, action: View.() -> Unit) {
+    this.setOnClickListener {
+        val viewId = this.id
+        if (viewId == sViewId && System.currentTimeMillis() - sLastTime <= time) {
+            return@setOnClickListener
+        }
+        sViewId = viewId
+        sLastTime = System.currentTimeMillis()
+        action.invoke(this)
+    }
+}
+
+fun View.onClickUnit(time: Int = EkConfigs.repeatInTime, action: () -> Unit) {
     this.setOnClickListener {
         val viewId = this.id
         if (viewId == sViewId && System.currentTimeMillis() - sLastTime <= time) {
@@ -28,6 +41,22 @@ fun View.onClick(time: Int = 500, action: () -> Unit) {
         sLastTime = System.currentTimeMillis()
         action.invoke()
     }
+}
+
+fun View.onClick(time: Int = EkConfigs.repeatInTime, l: View.OnClickListener) {
+    this.setOnClickListener {
+        val viewId = this.id
+        if (viewId == sViewId && System.currentTimeMillis() - sLastTime <= time) {
+            return@setOnClickListener
+        }
+        sViewId = viewId
+        sLastTime = System.currentTimeMillis()
+        this.setOnClickListener(l)
+    }
+}
+
+fun View.onClick(l: View.OnClickListener) {
+    onClick(EkConfigs.repeatInTime, l)
 }
 
 fun View.visible() {
