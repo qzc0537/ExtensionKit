@@ -173,6 +173,8 @@ private fun otherApis() {
 
 ### [File相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/FileExt.kt)
 
+### [Gson相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/GsonExt.kt)
+
 ### [SP相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SharedPreferencesExt.kt)
 
 ### [SnackBar相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/SnackBarExt.kt)
