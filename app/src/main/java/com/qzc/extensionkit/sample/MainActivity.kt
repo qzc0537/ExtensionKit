@@ -92,7 +92,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun otherApis() {
-        logi("Hello")
+        logi("isNetworkAvailable->${isNetworkAvailable()}")
+        logi("isWifiConnected->${isWifiConnected()}")
+        logi("getNetworkType->${getNetworkType()}")
 
         toast("Hello")
         val view = layoutInflater.inflate(R.layout.layout_toast, null)

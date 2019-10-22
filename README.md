@@ -100,7 +100,9 @@ permissionBtn.onClick {
 }
 
 private fun otherApis() {
-    logi("Hello")
+    logi("isNetworkAvailable->${isNetworkAvailable()}")
+    logi("isWifiConnected->${isWifiConnected()}")
+    logi("getNetworkType->${getNetworkType()}")
 
     toast("Hello")
     val view = layoutInflater.inflate(R.layout.layout_toast, null)
@@ -184,3 +186,7 @@ private fun otherApis() {
 ### [异步操作相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AsyncExt.kt)
 
 ### [加密相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/AesExt.kt)
+
+### [网络相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/NetworkExt.kt)
+
+### [MD5相关](https://github.com/qzc0537/ExtensionKit/blob/master/extensionkit/src/main/java/com/qzc/extensionkit/ext/MD5Ext.kt)

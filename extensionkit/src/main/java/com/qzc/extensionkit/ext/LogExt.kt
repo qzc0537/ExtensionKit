@@ -14,10 +14,8 @@ const val I = "I"
 const val W = "W"
 const val E = "E"
 
-var showLog = BuildConfig.DEBUG
-
 fun log(level: String, tag: String = EkConfigs.logTag, msg: String) {
-    if (!showLog) return
+    if (!EkConfigs.logEnable) return
     when (level) {
         V -> Log.v(tag, msg)
         D -> Log.d(tag, msg)

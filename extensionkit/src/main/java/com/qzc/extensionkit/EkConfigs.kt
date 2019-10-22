@@ -14,6 +14,8 @@ object EkConfigs {
     @JvmField
     var logTag: String = "LogExt"
     @JvmField
+    var logEnable: Boolean = true
+    @JvmField
     var toastUseSystem: Boolean = true
     @JvmField
     var toastGravity: Int = Gravity.BOTTOM
