@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         EkConfigs.initToast(application, true, null)
         EkConfigs.snackBarBgColor = color(R.color.colorPrimary)
         EkConfigs.snackBarTextColor = Color.WHITE
+        EkConfigs.logEnable = true
 
 
         dialogExtBtn1.onClick {
