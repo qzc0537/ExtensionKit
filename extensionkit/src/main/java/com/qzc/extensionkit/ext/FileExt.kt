@@ -1,16 +1,14 @@
 package com.qzc.extensionkit.ext
 
 import android.content.Context
+import android.content.res.AssetFileDescriptor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.support.v4.content.FileProvider
 import android.text.TextUtils
 import com.qzc.extensionkit.utils.getMimeType
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.RandomAccessFile
+import java.io.*
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
 import java.text.DecimalFormat
@@ -324,4 +322,22 @@ fun Context.makeDir(parent: String, child: String): File? {
     val file = File(parent, child)
     val res = file.makeDir()
     return if (res) file else null
+}
+
+
+fun Context.isAndroidQFileExists( path: String): Boolean {
+    var afd: AssetFileDescriptor? = null
+    val cr = this.contentResolver
+    try {
+        val uri = Uri.parse(path)
+        afd = cr.openAssetFileDescriptor(uri, "r")
+        afd?.let {
+            afd.close()
+        } ?: return false
+    } catch (e: FileNotFoundException) {
+        return false
+    } finally {
+        afd?.close()
+    }
+    return true
 }

@@ -8,6 +8,9 @@ import android.os.Build
 import android.provider.Settings
 import android.support.v4.content.FileProvider
 import java.io.File
+import android.support.v4.content.ContextCompat.startActivity
+
+
 
 /**
  * created by qzc at 2019/09/22 11:16
@@ -64,7 +67,20 @@ fun Context.goToLanguagePage() {
     startActivity(getLanguageIntent())
 }
 
+/**
+ * 安装意图
+ */
 fun Context.getInstallIntent(apkFile: File): Intent? {
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//        //适配Android Q,注意mFilePath是通过ContentResolver得到的，上述有相关代码
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse(apkFile.absolutePath), "application/vnd.android.package-archive")
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//        startActivity(intent)
+//        return intent
+//    }
+
     if (!apkFile.exists()) return null
     val intent = Intent(Intent.ACTION_VIEW)
     val uri: Uri

@@ -17,6 +17,8 @@ import android.net.Uri
 import android.provider.DocumentsContract
 import android.support.annotation.RequiresApi
 import android.text.TextUtils
+import android.content.ContentValues
+
 
 /**
  * created by qzc at 2019/09/23 20:37
@@ -127,6 +129,33 @@ fun Context.saveToGallery(bitmap: Bitmap, desFile: File): Boolean {
 }
 
 /**
+ * 保存图片到picture 目录，Android Q适配，最简单的做法就是保存到公共目录，不用SAF存储
+ *
+ * @param bitmap
+ * @param fileName
+ */
+fun Context.saveToGalleryAndroidQ(bitmap: Bitmap, fileName: String): Boolean {
+    val contentValues = ContentValues()
+    contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+    contentValues.put(MediaStore.Images.Media.DESCRIPTION, fileName)
+    contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+    val uri =
+        this.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+    var outputStream: OutputStream? = null
+    try {
+        uri?.let {
+            outputStream = this.contentResolver.openOutputStream(it)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream?.close()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return false
+    }
+    return true
+}
+
+/**
  * 质量压缩
  * @param quality 图片的质量,0-100,数值越小质量越差
  * @param format  图片格式 jpeg,png,webp
@@ -173,7 +202,7 @@ fun Context.compressSampledFromResource(resId: Int, reqWidth: Int, reqHeight: In
  *采样率压缩
  * @param inSampleSize  可以根据需求计算出合理的inSampleSize
  */
-fun Context.compressSampledFromFile(path: String, reqWidth: Int, reqHeight: Int) {
+fun Context.compressSampledFromFile(path: String, reqWidth: Int, reqHeight: Int): Bitmap {
     // First decode with inJustDecodeBounds=true to check dimensions
     return BitmapFactory.Options().run {
         inJustDecodeBounds = true
@@ -197,9 +226,8 @@ fun Context.compressSampledFromFile(path: String, reqWidth: Int, reqHeight: Int)
  *采样率压缩
  * @param inSampleSize  可以根据需求计算出合理的inSampleSize
  */
-fun ByteArray.compressSampledFromByte(reqWidth: Int, reqHeight: Int) {
+fun Context.compressSampledFromByte(data: ByteArray, reqWidth: Int, reqHeight: Int): Bitmap {
     // First decode with inJustDecodeBounds=true to check dimensions
-    val data = this
     return BitmapFactory.Options().run {
         inJustDecodeBounds = true
         BitmapFactory.decodeByteArray(data, 0, data.size, this)

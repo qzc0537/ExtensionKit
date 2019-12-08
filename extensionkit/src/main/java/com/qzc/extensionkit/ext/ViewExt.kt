@@ -111,7 +111,7 @@ fun Context.drawable(id: Int): Drawable {
 
 fun Context.copyToClipboard(text: String, label: String = "ViewExt") {
     val clipData = ClipData.newPlainText(label, text)
-    clipboardManager?.primaryClip = clipData
+    clipboardManager?.setPrimaryClip(clipData)
 }
 
 fun CharSequence?.notNullEmpty(): Boolean {

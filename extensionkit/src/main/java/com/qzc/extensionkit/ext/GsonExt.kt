@@ -2,7 +2,8 @@ package com.qzc.extensionkit.ext
 
 import android.text.TextUtils
 import com.google.gson.Gson
-import com.google.gson.JsonParser
+import com.google.gson.reflect.TypeToken
+import java.util.ArrayList
 
 /**
  * created by qzc at 2019/10/22 10:21
@@ -52,11 +53,10 @@ fun <T> jsonToObj(json: String, clazz: Class<T>): T {
  * @return
 </T> */
 fun <T> jsonToList(json: String, clazz: Class<T>): List<T> {
-    if (TextUtils.isEmpty(json)) return ArrayList()
-    val list = ArrayList<T>()
-    val array = JsonParser().parse(json).asJsonArray
-    for (element in array) {
-        list.add(gson.fromJson(element, clazz))
-    }
-    return list
+    return if (TextUtils.isEmpty(json)) ArrayList() else gson.fromJson(
+        json,
+        object : TypeToken<List<T>>() {
+
+        }.type
+    )
 }
