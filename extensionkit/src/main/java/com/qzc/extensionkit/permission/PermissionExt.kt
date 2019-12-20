@@ -4,12 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.FragmentActivity
-import android.support.v4.content.ContextCompat
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.core.content.ContextCompat
 import android.app.AppOpsManager
 import android.app.NotificationManager
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import com.qzc.extensionkit.ext.appOpsManager
 import com.qzc.extensionkit.ext.notificationManager
 
@@ -21,11 +21,11 @@ import com.qzc.extensionkit.ext.notificationManager
 
 const val TAG = "permission"
 
-fun FragmentActivity.request(vararg permissions: String) {
+fun androidx.fragment.app.FragmentActivity.request(vararg permissions: String) {
     ActivityCompat.requestPermissions(this, permissions, 0XFF)
 }
 
-fun FragmentActivity.request(
+fun androidx.fragment.app.FragmentActivity.request(
     vararg permissions: String,
     callbacks: PermissionsCallbackDSL.() -> Unit
 ) {
@@ -67,7 +67,7 @@ fun FragmentActivity.request(
     }
 }
 
-private fun getEkPermissionFragment(activity: FragmentActivity): EkPermissionFragment {
+private fun getEkPermissionFragment(activity: androidx.fragment.app.FragmentActivity): EkPermissionFragment {
     var fragment = activity.supportFragmentManager.findFragmentByTag(TAG)
     if (fragment == null) {
         fragment = EkPermissionFragment()

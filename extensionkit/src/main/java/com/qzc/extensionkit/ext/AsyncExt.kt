@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import java.lang.ref.WeakReference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -75,11 +75,11 @@ fun <T: Activity> AsyncContext<T>.activityUiThreadWithContext(f: Context.(T) -> 
 /**
  * Execute [f] on the application UI thread.
  */
-inline fun Fragment.runOnUiThread(crossinline f: () -> Unit) {
+inline fun androidx.fragment.app.Fragment.runOnUiThread(crossinline f: () -> Unit) {
     activity?.runOnUiThread { f() }
 }
 
-fun <T: Fragment> AsyncContext<T>.fragmentUiThread(f: (T) -> Unit): Boolean {
+fun <T: androidx.fragment.app.Fragment> AsyncContext<T>.fragmentUiThread(f: (T) -> Unit): Boolean {
     val fragment = weakRef.get() ?: return false
     if (fragment.isDetached) return false
     val activity = fragment.activity ?: return false
@@ -87,7 +87,7 @@ fun <T: Fragment> AsyncContext<T>.fragmentUiThread(f: (T) -> Unit): Boolean {
     return true
 }
 
-fun <T: Fragment> AsyncContext<T>.fragmentUiThreadWithContext(f: Context.(T) -> Unit): Boolean {
+fun <T: androidx.fragment.app.Fragment> AsyncContext<T>.fragmentUiThreadWithContext(f: Context.(T) -> Unit): Boolean {
     val fragment = weakRef.get() ?: return false
     if (fragment.isDetached) return false
     val activity = fragment.activity ?: return false

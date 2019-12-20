@@ -14,7 +14,7 @@ import android.os.BatteryManager
 import android.os.PowerManager
 import android.os.Vibrator
 import android.os.storage.StorageManager
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.telephony.CarrierConfigManager
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager

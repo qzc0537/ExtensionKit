@@ -2,13 +2,13 @@ package com.qzc.extensionkit.permission
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 /**
  * created by qzc at 2019/09/22 12:30
  * desc:
  */
-class EkPermissionFragment : Fragment() {
+class EkPermissionFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

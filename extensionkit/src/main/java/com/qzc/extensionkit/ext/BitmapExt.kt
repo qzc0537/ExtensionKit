@@ -15,7 +15,7 @@ import android.provider.MediaStore
 import android.content.ContentUris
 import android.net.Uri
 import android.provider.DocumentsContract
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.text.TextUtils
 import android.content.ContentValues
 

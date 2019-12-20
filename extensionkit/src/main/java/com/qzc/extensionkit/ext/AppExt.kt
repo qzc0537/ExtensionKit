@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Looper
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 
 /**
  * created by qzc at 2019/09/21 00:52
