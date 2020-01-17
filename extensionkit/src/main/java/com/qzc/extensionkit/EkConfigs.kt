@@ -32,7 +32,7 @@ object EkConfigs {
     var showActivityLife: Boolean = true
     //控件重复点击时间
     @JvmField
-    var repeatInTime: Int = 500
+    var repeatInTime: Int = 1000
 
     /**
      * Application中初始化

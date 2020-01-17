@@ -59,6 +59,14 @@ fun View.onClick(l: View.OnClickListener) {
     onClick(EkConfigs.repeatInTime, l)
 }
 
+fun View.isFastClick(period: Int = EkConfigs.repeatInTime): Boolean {
+    if (System.currentTimeMillis() - sLastTime <= period) {
+        return true
+    }
+    sLastTime = System.currentTimeMillis()
+    return false
+}
+
 fun View.visible() {
     visibility = View.VISIBLE
 }
