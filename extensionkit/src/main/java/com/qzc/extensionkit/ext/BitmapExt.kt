@@ -99,6 +99,15 @@ fun Context.saveToInternal(bitmap: Bitmap, desFile: File): Boolean {
 }
 
 /**
+ * 通知相册刷新
+ */
+fun Context.refreshGallery(file: File) {
+    val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+    intent.data = Uri.fromFile(file)
+    sendBroadcast(intent)
+}
+
+/**
  * 保存图片到相册
  * @RequiresPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
  */
@@ -108,13 +117,7 @@ fun Context.saveToGallery(bitmap: Bitmap, desFile: File): Boolean {
         fos = FileOutputStream(desFile)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
         fos.flush()
-        //通知系统相册刷新
-        sendBroadcast(
-            Intent(
-                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                fromFile(File(desFile.path))
-            )
-        )
+        refreshGallery(desFile)
         return true
     } catch (e: Exception) {
         e.printStackTrace()
