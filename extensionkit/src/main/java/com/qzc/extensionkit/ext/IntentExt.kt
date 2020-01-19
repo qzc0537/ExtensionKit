@@ -8,8 +8,6 @@ import android.os.Build
 import android.provider.Settings
 import androidx.core.content.FileProvider
 import java.io.File
-import androidx.core.content.ContextCompat.startActivity
-
 
 
 /**
@@ -24,7 +22,7 @@ fun Context.getSettingsIntent(): Intent =
     }
 
 /** 跳转到设置页面 */
-fun Context.gotoSettingsPage(){
+fun Context.gotoSettingsPage() {
     startActivity(getSettingsIntent())
 }
 
@@ -97,11 +95,6 @@ fun Context.getInstallIntent(apkFile: File): Intent? {
     return intent
 }
 
-/** 跳转到无障碍服务设置页面 */
-fun Context.goToAccessibilitySetting() =
-    Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).run { startActivity(this) }
-
-
 /**
  * need android.permission.REQUEST_INSTALL_PACKAGES after N
  */
@@ -109,6 +102,10 @@ fun Context.installApk(apkFile: File) {
     val intent = getInstallIntent(apkFile)
     intent?.run { startActivity(this) }
 }
+
+/** 跳转到无障碍服务设置页面 */
+fun Context.goToAccessibilitySetting() =
+    Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).run { startActivity(this) }
 
 /** 浏览器打开指定网页 */
 fun Context.openBrowser(url: String) {
@@ -140,12 +137,58 @@ fun Context.uninstallApp(packageName: String) {
     }
 }
 
+/** 发送邮件 */
 fun Context.sendEmail(email: String, subject: String?, text: String?) {
     Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email")).run {
         subject?.let { putExtra(Intent.EXTRA_SUBJECT, subject) }
         text?.let { putExtra(Intent.EXTRA_TEXT, text) }
         startActivity(this)
     }
+}
+
+/** 系统分享文本 **/
+fun Context.shareText(title: String, content: String) {
+    var shareIntent = Intent()
+    shareIntent.action = Intent.ACTION_SEND
+    shareIntent.type = "text/plain"
+    shareIntent.putExtra(Intent.EXTRA_TEXT, content)
+    //切记需要使用Intent.createChooser，否则会出现别样的应用选择框，您可以试试
+    shareIntent = Intent.createChooser(shareIntent, title)
+    startActivity(shareIntent)
+}
+
+/** 系统分享图片 **/
+fun Context.shareImage(title: String, drawable: Int) {
+    //将mipmap中图片转换成Uri
+    val imgUri =
+        Uri.parse("android.resource://" + applicationContext.packageName + "/" + drawable)
+    var shareIntent = Intent()
+    shareIntent.action = Intent.ACTION_SEND
+    //其中imgUri为图片的标识符
+    shareIntent.putExtra(Intent.EXTRA_STREAM, imgUri)
+    shareIntent.type = "image/*"
+    //切记需要使用Intent.createChooser，否则会出现别样的应用选择框，您可以试试
+    shareIntent = Intent.createChooser(shareIntent, title)
+    startActivity(shareIntent)
+}
+
+/** 系统分享图片 **/
+fun Context.shareImages(title: String, vararg drawables: Int) {
+    val imgUris = ArrayList<Uri>()
+    for (drawable in drawables) {
+        val imgUri =
+            Uri.parse("android.resource://" + applicationContext.packageName + "/" + drawable)
+        imgUris.add(imgUri)
+    }
+
+    var shareIntent = Intent()
+    shareIntent.action = Intent.ACTION_SEND_MULTIPLE
+    //其中fileUri为文件的标识符
+    shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imgUris)
+    shareIntent.type = "image/*"
+    //切记需要使用Intent.createChooser，否则会出现别样的应用选择框，您可以试试
+    shareIntent = Intent.createChooser(shareIntent, title)
+    startActivity(shareIntent)
 }
 
 
