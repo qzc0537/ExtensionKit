@@ -1,5 +1,6 @@
 package com.qzc.extensionkit.ext
 
+import android.text.TextUtils
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -13,7 +14,8 @@ import java.security.NoSuchAlgorithmException
  * @param plainText 待加密字符串
  * @return 加密后32位字符串
  */
-fun getMd5(plainText: String): String? {
+fun getMd5(plainText: String): String {
+    if (TextUtils.isEmpty(plainText)) return ""
 
     try {
         val md = MessageDigest.getInstance("MD5")
@@ -35,7 +37,7 @@ fun getMd5(plainText: String): String? {
         return buf.toString()
     } catch (e: NoSuchAlgorithmException) {
         e.printStackTrace()
-        return null
+        return ""
     }
 
 }
