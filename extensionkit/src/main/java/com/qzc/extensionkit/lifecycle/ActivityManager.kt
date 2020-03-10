@@ -1,6 +1,7 @@
 package com.qzc.extensionkit.lifecycle
 
 import android.app.Activity
+import java.lang.ref.WeakReference
 import java.util.*
 
 /**
@@ -9,49 +10,79 @@ import java.util.*
  */
 object ActivityManager {
 
-    private val mActivityList = LinkedList<Activity>()
+    private val mActivityList = LinkedList<WeakReference<Activity>>()
 
-    val currentActivity: Activity?
-        get() = mActivityList.last
+    fun currentActivity(): Activity? {
+        checkWeakReference()
+        return if (!mActivityList.isEmpty()) {
+            mActivityList.last().get()
+        } else null
+    }
 
-
-    fun addActivity(activity: Activity) {
-        if (mActivityList.contains(activity)) {
-            if (mActivityList.last != activity) {
-                mActivityList.remove(activity)
-                mActivityList.add(activity)
+    /**
+     * 检查弱引用是否释放，若释放，则从栈中清理掉该元素
+     */
+    fun checkWeakReference() {
+        // 使用迭代器进行安全删除
+        val it = mActivityList.iterator()
+        while (it.hasNext()) {
+            val reference = it.next()
+            val temp = reference.get()
+            if (temp == null) {
+                it.remove()
             }
-        } else {
-            mActivityList.add(activity)
         }
     }
 
-    fun removeActivity(activity: Activity) {
-        mActivityList.remove(activity)
+    /**
+     * 清除指定引用
+     */
+    fun removeRefrence(clazz: Class<*>, finish: Boolean) {
+        if (clazz == null) return
+        val it = mActivityList.iterator()
+        while (it.hasNext()) {
+            val reference = it.next()
+            val temp = reference.get()
+            if (temp == null) {
+                it.remove()
+                continue
+            }
+            if (temp.javaClass == clazz) {
+                it.remove()
+                if (finish) temp.finish()
+            }
+        }
+    }
+
+    fun addActivity(activity: Activity) {
+        mActivityList.add(WeakReference(activity))
     }
 
     fun finishCurrentActivity() {
-        currentActivity?.finish()
+        currentActivity()?.let { removeRefrence(it.javaClass, true) }
     }
 
     fun finishActivity(activity: Activity) {
-        mActivityList.remove(activity)
-        activity.finish()
+        removeRefrence(activity.javaClass, true)
     }
 
     fun finishActivity(clazz: Class<*>) {
-        for (activity in mActivityList)
-            if (activity.javaClass == clazz)
-                activity.finish()
+        removeRefrence(clazz, true)
     }
 
     fun finishAllActivity() {
-        for (activity in mActivityList)
-            activity.finish()
+        for (activity in mActivityList) {
+            removeRefrence(activity.javaClass, true)
+        }
     }
 
     fun finishAllActivity(retain: Activity) {
-        for (activity in mActivityList)
-            if (retain != activity) activity.finish()
+        for (reference in mActivityList) {
+            reference.get()?.let {
+                if (it.javaClass != retain.javaClass) {
+                    removeRefrence(it.javaClass, true)
+                }
+            }
+        }
     }
 }
