@@ -14,7 +14,6 @@ class EkLifeCycleCallBack : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         if (EkConfigs.showActivityLife) logi("onActivityCreated : ${activity.localClassName}")
-        ActivityManager.addActivity(activity)
     }
 
     override fun onActivityStarted(activity: Activity) {
@@ -32,7 +31,6 @@ class EkLifeCycleCallBack : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityDestroyed(activity: Activity) {
         if (EkConfigs.showActivityLife) logi("onActivityDestroyed : ${activity.localClassName}")
-        ActivityManager.removeActivity(activity)
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
