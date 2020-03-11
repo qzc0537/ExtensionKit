@@ -37,19 +37,19 @@ object ActivityManager {
     /**
      * 清除指定引用
      */
-    fun removeRefrence(clazz: Class<*>, finish: Boolean) {
+    fun removeRefrence(clazz: Class<*>?, finish: Boolean) {
         if (clazz == null) return
         val it = mActivityList.iterator()
         while (it.hasNext()) {
             val reference = it.next()
-            val temp = reference.get()
-            if (temp == null) {
+            val activity = reference.get()
+            if (activity == null) {
                 it.remove()
                 continue
             }
-            if (temp.javaClass == clazz) {
+            if (activity.javaClass == clazz) {
                 it.remove()
-                if (finish) temp.finish()
+                if (finish) activity.finish()
             }
         }
     }
@@ -59,7 +59,7 @@ object ActivityManager {
     }
 
     fun finishCurrentActivity() {
-        currentActivity()?.let { removeRefrence(it.javaClass, true) }
+        removeRefrence(currentActivity()?.javaClass, true)
     }
 
     fun finishActivity(activity: Activity) {
@@ -77,11 +77,17 @@ object ActivityManager {
     }
 
     fun finishAllActivity(retain: Activity) {
-        for (reference in mActivityList) {
-            reference.get()?.let {
-                if (it.javaClass != retain.javaClass) {
-                    removeRefrence(it.javaClass, true)
-                }
+        val it = mActivityList.iterator()
+        while (it.hasNext()) {
+            val reference = it.next()
+            val activity = reference.get()
+            if (activity == null) {
+                it.remove()
+                continue
+            }
+            if (activity.javaClass != retain.javaClass) {
+                it.remove()
+                activity.finish()
             }
         }
     }
