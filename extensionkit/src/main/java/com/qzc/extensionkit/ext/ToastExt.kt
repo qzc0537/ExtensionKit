@@ -1,6 +1,7 @@
 package com.qzc.extensionkit.ext
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,8 @@ import com.qzc.extensionkit.EkConfigs
  * created by qzc at 2019/09/18 17:17
  * desc:
  */
+private var mToast: Toast? = null
+
 fun Context.toast(
     text: CharSequence,
     duration: Int = Toast.LENGTH_SHORT,
@@ -19,33 +22,38 @@ fun Context.toast(
     yOffset: Int = EkConfigs.toastYOffset,
     view: View? = null
 ) {
-    val sToast = ToastUtils.getToast()
-    if (sToast == null || EkConfigs.toastUseSystem) {
-        if (view != null) {
-            val toast = Toast(this.applicationContext)
-            toast.view = view
-            toast.duration = duration
-            toast.setGravity(gravity, xOffset, yOffset)
-            toast.show()
-        } else {
-            val toast = Toast.makeText(this.applicationContext, text, duration)
-            toast.setGravity(gravity, xOffset, yOffset)
-            toast.show()
+    if (EkConfigs.toastUseSystem) {
+        if (mToast == null) {
+            mToast = Toast(this.applicationContext)
         }
+        if (view != null) {
+            mToast?.view = view
+        } else {
+            if (TextUtils.isEmpty(text)) return
+            mToast?.setText(text)
+        }
+        mToast?.duration = duration
+        mToast?.setGravity(gravity, xOffset, yOffset)
+        mToast?.show()
     } else {
-        val toast = ToastUtils.getToast()
-        if (view != null) {
-            toast.view = view
-            toast.duration = duration
-            toast.setGravity(gravity, xOffset, yOffset)
-            toast.show()
-        } else {
-            if (text.isEmpty()) return
-            toast.setText(text)
-            toast.duration = duration
-            toast.setGravity(gravity, xOffset, yOffset)
-            toast.show()
+        if (mToast == null) {
+            mToast = ToastUtils.getToast()
         }
+        if (view != null) {
+            mToast?.view = view
+        } else {
+            if (TextUtils.isEmpty(text)) return
+            mToast?.setText(text)
+        }
+        mToast?.duration = duration
+        mToast?.setGravity(gravity, xOffset, yOffset)
+        mToast?.show()
+    }
+}
+
+fun Context.cancelToast() {
+    if (mToast != null) {
+        mToast?.cancel()
     }
 }
 
