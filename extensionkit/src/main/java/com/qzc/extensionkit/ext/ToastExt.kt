@@ -24,7 +24,12 @@ fun Context.toast(
 ) {
     if (EkConfigs.toastUseSystem) {
         if (mToast == null) {
-            mToast = Toast(this.applicationContext)
+            if (view != null) {
+                mToast = Toast(this.applicationContext)
+                mToast?.view = view
+            } else {
+                mToast = Toast.makeText(this.applicationContext, text, duration)
+            }
         }
         if (view != null) {
             mToast?.view = view
