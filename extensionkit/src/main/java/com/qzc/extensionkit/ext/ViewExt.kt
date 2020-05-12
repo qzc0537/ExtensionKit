@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.qzc.extensionkit.EkConfigs
 
 /**
@@ -85,6 +86,12 @@ val Context.screenWidth
 val Context.screenHeight
     get() = resources.displayMetrics.heightPixels
 
+val Fragment.screenWidth
+    get() = resources.displayMetrics.widthPixels
+
+val Fragment.screenHeight
+    get() = resources.displayMetrics.heightPixels
+
 fun Context.dp2px(dp: Int): Int {
     val scale = resources.displayMetrics.density
     return (dp * scale + 0.5f).toInt()
@@ -95,14 +102,34 @@ fun Context.px2dp(px: Int): Int {
     return (px / scale + 0.5f).toInt()
 }
 
-fun View.dp2px(dp: Int): Int {
+fun Context.sp2px(value: Int): Int {
+    val scale = resources.displayMetrics.scaledDensity
+    return (value * scale + 0.5f).toInt()
+}
+
+fun Context.px2sp(value: Int): Int {
+    val scale = resources.displayMetrics.scaledDensity
+    return (value / scale + 0.5f).toInt()
+}
+
+fun Fragment.dp2px(dp: Int): Int {
     val scale = resources.displayMetrics.density
     return (dp * scale + 0.5f).toInt()
 }
 
-fun View.px2dp(px: Int): Int {
+fun Fragment.px2dp(px: Int): Int {
     val scale = resources.displayMetrics.density
     return (px / scale + 0.5f).toInt()
+}
+
+fun Fragment.sp2px(value: Int): Int {
+    val scale = resources.displayMetrics.scaledDensity
+    return (value * scale + 0.5f).toInt()
+}
+
+fun Fragment.px2sp(value: Int): Int {
+    val scale = resources.displayMetrics.scaledDensity
+    return (value / scale + 0.5f).toInt()
 }
 
 fun Context.string(id: Int): String {
@@ -113,13 +140,32 @@ fun Context.color(id: Int): Int {
     return ContextCompat.getColor(this, id)
 }
 
-fun Context.drawable(id: Int): Drawable {
-    return ContextCompat.getDrawable(this, id)!!
+fun Context.drawable(id: Int): Drawable? {
+    return ContextCompat.getDrawable(this, id)
 }
 
 fun Context.copyToClipboard(text: String, label: String = "ViewExt") {
     val clipData = ClipData.newPlainText(label, text)
-    clipboardManager?.setPrimaryClip(clipData)
+    clipboardManager?.primaryClip = clipData
+}
+
+fun Fragment.string(id: Int): String {
+    return this.getString(id)
+}
+
+fun Fragment.color(id: Int): Int {
+    if (context == null) return 0
+    return ContextCompat.getColor(context!!, id)
+}
+
+fun Fragment.drawable(id: Int): Drawable? {
+    if (context == null) return null
+    return ContextCompat.getDrawable(context!!, id)
+}
+
+fun Fragment.copyToClipboard(text: String, label: String = "ViewExt") {
+    val clipData = ClipData.newPlainText(label, text)
+    context?.clipboardManager?.primaryClip = clipData
 }
 
 fun CharSequence?.notNullEmpty(): Boolean {
