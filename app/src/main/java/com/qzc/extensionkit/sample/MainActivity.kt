@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import com.qzc.extensionkit.EkConfigs
 import com.qzc.extensionkit.ext.*
 import com.qzc.extensionkit.permission.request
@@ -76,19 +77,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
         permissionBtn.onClick {
-            request(Manifest.permission.CAMERA) {
-                onGranted { toast("获取权限成功") }
-                onDenied { toast("获取权限失败") }
-                onShowRationale {
-                    alert {
-                        setTitle("请求权限")
-                        setMessage("我们需要相机权限")
-                        setPositiveButton("确定") { dialog, which -> it.retry() }
-                        setNegativeButton("取消") { dialog, which -> }
-                    }
-                }
-                onNeverAskAgain { goToAppInfoPage() }
-            }
+//            request(Manifest.permission.CAMERA) {
+//                onGranted { toast("获取权限成功") }
+//                onDenied { toast("获取权限失败") }
+//                onShowRationale {
+//                    alert {
+//                        setTitle("请求权限")
+//                        setMessage("我们需要相机权限")
+//                        setPositiveButton("确定") { dialog, which -> it.retry() }
+//                        setNegativeButton("取消") { dialog, which -> }
+//                    }
+//                }
+//                onNeverAskAgain { goToAppInfoPage() }
+//            }
+            val view = View.inflate(this@MainActivity, R.layout.layout_toast, null)
+            toast(view)
         }
     }
 
@@ -117,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         logi("screenWidth->$screenWidth screenHeight->$screenHeight")
-        dp2px(10)
+        dp2px(10f)
         string(R.string.app_name)
         color(R.color.colorPrimary)
         drawable(R.mipmap.ic_launcher)

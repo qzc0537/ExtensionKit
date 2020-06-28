@@ -18,7 +18,7 @@ object EkConfigs {
     @JvmField
     var toastUseSystem: Boolean = true
     @JvmField
-    var toastGravity: Int = Gravity.BOTTOM
+    var toastGravity: Int = Gravity.CENTER
     @JvmField
     var toastXOffset: Int = 0
     @JvmField
