@@ -53,7 +53,6 @@ fun Context.toast(
 
 fun Context.cancelToast() {
     if (mToast != null) {
-        mToast?.view = null
         mToast?.cancel()
     }
 }
