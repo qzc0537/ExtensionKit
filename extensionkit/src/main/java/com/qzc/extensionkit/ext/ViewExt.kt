@@ -92,44 +92,44 @@ val Fragment.screenWidth
 val Fragment.screenHeight
     get() = resources.displayMetrics.heightPixels
 
-fun Context.dp2px(dp: Float): Int {
+fun Context.dp2px(dp: Float): Float {
     val scale = resources.displayMetrics.density
-    return (dp * scale + 0.5f).toInt()
+    return dp * scale + 0.5f
 }
 
-fun Context.px2dp(px: Float): Int {
+fun Context.px2dp(px: Float): Float {
     val scale = resources.displayMetrics.density
-    return (px / scale + 0.5f).toInt()
+    return px / scale + 0.5f
 }
 
-fun Context.sp2px(value: Float): Int {
+fun Context.sp2px(value: Float): Float {
     val scale = resources.displayMetrics.scaledDensity
-    return (value * scale + 0.5f).toInt()
+    return value * scale + 0.5f
 }
 
-fun Context.px2sp(value: Float): Int {
+fun Context.px2sp(value: Float): Float {
     val scale = resources.displayMetrics.scaledDensity
-    return (value / scale + 0.5f).toInt()
+    return value / scale + 0.5f
 }
 
-fun Fragment.dp2px(dp: Float): Int {
+fun Fragment.dp2px(dp: Float): Float {
     val scale = resources.displayMetrics.density
-    return (dp * scale + 0.5f).toInt()
+    return dp * scale + 0.5f
 }
 
-fun Fragment.px2dp(px: Float): Int {
+fun Fragment.px2dp(px: Float): Float {
     val scale = resources.displayMetrics.density
-    return (px / scale + 0.5f).toInt()
+    return px / scale + 0.5f
 }
 
-fun Fragment.sp2px(value: Float): Int {
+fun Fragment.sp2px(value: Float): Float {
     val scale = resources.displayMetrics.scaledDensity
-    return (value * scale + 0.5f).toInt()
+    return value * scale + 0.5f
 }
 
-fun Fragment.px2sp(value: Float): Int {
+fun Fragment.px2sp(value: Float): Float {
     val scale = resources.displayMetrics.scaledDensity
-    return (value / scale + 0.5f).toInt()
+    return value / scale + 0.5f
 }
 
 fun Context.string(id: Int): String {
