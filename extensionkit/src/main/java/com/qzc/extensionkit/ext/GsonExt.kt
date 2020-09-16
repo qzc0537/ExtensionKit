@@ -1,7 +1,7 @@
 package com.qzc.extensionkit.ext
 
-import android.text.TextUtils
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import java.util.ArrayList
 
@@ -12,51 +12,40 @@ import java.util.ArrayList
 
 private val gson = Gson()
 
-/**
- * 对象转Json字符串
- *
- * @param obj
- * @return
- */
 fun objToJson(obj: Any): String {
     return gson.toJson(obj)
 }
 
-/**
- * 集合转Json字符串
- *
- * @param list
- * @return
- */
+fun mapToJson(map: Map<String, Any>): String {
+    return gson.toJson(map)
+}
+
 fun listToJson(list: List<*>): String {
     return gson.toJson(list)
 }
 
-/**
- * Json字符串转对象
- *
- * @param json
- * @param clazz
- * @param <T>
- * @return
-</T> */
 fun <T> jsonToObj(json: String, clazz: Class<T>): T {
     return gson.fromJson(json, clazz)
 }
 
-/**
- * Json字符串转集合
- *
- * @param json
- * @param clazz
- * @param <T>
- * @return
-</T> */
-fun <T> jsonToList(json: String, clazz: Class<T>): List<T> {
-    return if (TextUtils.isEmpty(json)) ArrayList() else gson.fromJson(
-        json,
-        object : TypeToken<List<T>>() {
+fun <T> jsonToList(json: String, cls: Class<T>): List<T> {
+    val list = ArrayList<T>()
+    val array = JsonParser().parse(json).asJsonArray
+    for (elem in array) {
+        list.add(gson.fromJson(elem, cls))
+    }
+    return list
+}
 
-        }.type
-    )
+fun <T> jsonToListMaps(json: String): List<Map<String, T>>? {
+    var list: List<Map<String, T>>? = null
+    if (gson != null) {
+        list = gson.fromJson<List<Map<String, T>>>(
+            json,
+            object : TypeToken<List<Map<String, T>>>() {
+
+            }.type
+        )
+    }
+    return list
 }
