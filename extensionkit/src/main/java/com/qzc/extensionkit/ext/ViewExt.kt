@@ -18,49 +18,47 @@ import com.qzc.extensionkit.EkConfigs
  * created by qzc at 2019/09/18 18:08
  * desc:
  */
-private var sViewId: Int = 0
 private var sLastTime: Long = 0L
 
+@Synchronized
 fun View.onClick(time: Int = EkConfigs.repeatInTime, action: View.() -> Unit) {
     this.setOnClickListener {
-        val viewId = this.id
-        if (viewId == sViewId && System.currentTimeMillis() - sLastTime <= time) {
+        if (System.currentTimeMillis() - sLastTime <= time) {
             return@setOnClickListener
         }
-        sViewId = viewId
         sLastTime = System.currentTimeMillis()
         action.invoke(this)
     }
 }
 
+@Synchronized
 fun View.onClickUnit(time: Int = EkConfigs.repeatInTime, action: () -> Unit) {
     this.setOnClickListener {
-        val viewId = this.id
-        if (viewId == sViewId && System.currentTimeMillis() - sLastTime <= time) {
+        if (System.currentTimeMillis() - sLastTime <= time) {
             return@setOnClickListener
         }
-        sViewId = viewId
         sLastTime = System.currentTimeMillis()
         action.invoke()
     }
 }
 
+@Synchronized
 fun View.onClick(time: Int = EkConfigs.repeatInTime, l: View.OnClickListener) {
     this.setOnClickListener {
-        val viewId = this.id
-        if (viewId == sViewId && System.currentTimeMillis() - sLastTime <= time) {
+        if (System.currentTimeMillis() - sLastTime <= time) {
             return@setOnClickListener
         }
-        sViewId = viewId
         sLastTime = System.currentTimeMillis()
         this.setOnClickListener(l)
     }
 }
 
+@Synchronized
 fun View.onClick(l: View.OnClickListener) {
     onClick(EkConfigs.repeatInTime, l)
 }
 
+@Synchronized
 fun View.isFastClick(period: Int = EkConfigs.repeatInTime): Boolean {
     if (System.currentTimeMillis() - sLastTime <= period) {
         return true
