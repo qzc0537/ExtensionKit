@@ -11,6 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import androidx.fragment.app.Fragment
 import com.qzc.extensionkit.ext.ExtInternals.createIntent
 import com.qzc.extensionkit.ext.ExtInternals.internalStartActivity
 import com.qzc.extensionkit.ext.ExtInternals.internalStartActivityForResult
@@ -28,30 +29,37 @@ fun Activity.hideKeyboard() {
     currentFocus?.clearFocus()
 }
 
-fun Activity.showKeyboard(et: EditText) {
+fun Context.showKeyboard(et: EditText) {
     et.requestFocus()
     inputMethodManager?.showSoftInput(et, InputMethodManager.SHOW_IMPLICIT)
 }
 
-fun Activity.hideKeyboard(view: View) {
+fun Context.hideKeyboard(view: View) {
     inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-
-inline fun <reified T: Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
+inline fun <reified T : Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
     internalStartActivity(this, T::class.java, params)
 
-inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, vararg params: Pair<String, Any?>) =
+inline fun <reified T : Activity> Fragment.startActivity(vararg params: Pair<String, Any?>) =
+    this.context?.let {
+        internalStartActivity(it, T::class.java, params)
+    }
+
+inline fun <reified T : Activity> Activity.startActivityForResult(
+    requestCode: Int,
+    vararg params: Pair<String, Any?>
+) =
     internalStartActivityForResult(this, T::class.java, requestCode, params)
 
-inline fun <reified T: Service> Context.startService(vararg params: Pair<String, Any?>) =
+inline fun <reified T : Service> Context.startService(vararg params: Pair<String, Any?>) =
     internalStartService(this, T::class.java, params)
 
 inline fun <reified T : Service> Context.stopService(vararg params: Pair<String, Any?>) =
     internalStopService(this, T::class.java, params)
 
 
-inline fun <reified T: Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
+inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
     createIntent(this, T::class.java, params)
 
 /**
@@ -73,8 +81,12 @@ inline fun Intent.clearTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLE
  *
  * @return the same intent with the flag applied.
  */
-@Deprecated(message = "Deprecated in Android", replaceWith = ReplaceWith("org.jetbrains.anko.newDocument"))
-inline fun Intent.clearWhenTaskReset(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET) }
+@Deprecated(
+    message = "Deprecated in Android",
+    replaceWith = ReplaceWith("org.jetbrains.anko.newDocument")
+)
+inline fun Intent.clearWhenTaskReset(): Intent =
+    apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_NEW_DOCUMENT] flag to the [Intent].
@@ -95,7 +107,8 @@ inline fun Intent.newDocument(): Intent = apply {
  *
  * @return the same intent with the flag applied.
  */
-inline fun Intent.excludeFromRecents(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) }
+inline fun Intent.excludeFromRecents(): Intent =
+    apply { addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) }
 
 /**
  * Add the [Intent.FLAG_ACTIVITY_MULTIPLE_TASK] flag to the [Intent].
