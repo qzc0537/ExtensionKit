@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.core.content.ContextCompat
@@ -21,7 +22,8 @@ import com.qzc.extensionkit.EkConfigs
 private var sLastTime: Long = 0L
 
 @Synchronized
-fun View.onClick(time: Int = EkConfigs.repeatInTime, action: View.() -> Unit) {
+fun View?.onClick(time: Int = EkConfigs.repeatInTime, action: View.() -> Unit) {
+    if (this == null) return
     this.setOnClickListener {
         if (System.currentTimeMillis() - sLastTime <= time) {
             return@setOnClickListener
@@ -32,7 +34,8 @@ fun View.onClick(time: Int = EkConfigs.repeatInTime, action: View.() -> Unit) {
 }
 
 @Synchronized
-fun View.onClickUnit(time: Int = EkConfigs.repeatInTime, action: () -> Unit) {
+fun View?.onClickUnit(time: Int = EkConfigs.repeatInTime, action: () -> Unit) {
+    if (this == null) return
     this.setOnClickListener {
         if (System.currentTimeMillis() - sLastTime <= time) {
             return@setOnClickListener
@@ -43,7 +46,8 @@ fun View.onClickUnit(time: Int = EkConfigs.repeatInTime, action: () -> Unit) {
 }
 
 @Synchronized
-fun View.onClick(time: Int = EkConfigs.repeatInTime, l: View.OnClickListener) {
+fun View?.onClick(time: Int = EkConfigs.repeatInTime, l: View.OnClickListener) {
+    if (this == null) return
     this.setOnClickListener {
         if (System.currentTimeMillis() - sLastTime <= time) {
             return@setOnClickListener
@@ -54,12 +58,14 @@ fun View.onClick(time: Int = EkConfigs.repeatInTime, l: View.OnClickListener) {
 }
 
 @Synchronized
-fun View.onClick(l: View.OnClickListener) {
+fun View?.onClick(l: View.OnClickListener) {
+    if (this == null) return
     onClick(EkConfigs.repeatInTime, l)
 }
 
 @Synchronized
-fun View.isFastClick(period: Int = EkConfigs.repeatInTime): Boolean {
+fun View?.isFastClick(period: Int = EkConfigs.repeatInTime): Boolean {
+    if (this == null) return false
     if (System.currentTimeMillis() - sLastTime <= period) {
         return true
     }
@@ -67,93 +73,101 @@ fun View.isFastClick(period: Int = EkConfigs.repeatInTime): Boolean {
     return false
 }
 
-fun View.visible() {
+fun View?.visible() {
+    if (this == null) return
     visibility = View.VISIBLE
 }
 
-fun View.invisible() {
+fun View?.invisible() {
+    if (this == null) return
     visibility = View.INVISIBLE
 }
 
-fun View.gone() {
+fun View?.gone() {
+    if (this == null) return
     visibility = View.GONE
 }
 
-val Context.screenWidth
-    get() = resources.displayMetrics.widthPixels
+val Context?.screenWidth
+    get() = Resources.getSystem().displayMetrics.widthPixels
 
-val Context.screenHeight
-    get() = resources.displayMetrics.heightPixels
+val Context?.screenHeight
+    get() = Resources.getSystem().displayMetrics.heightPixels
 
-val Fragment.screenWidth
-    get() = resources.displayMetrics.widthPixels
+val Fragment?.screenWidth
+    get() = Resources.getSystem().displayMetrics.widthPixels
 
-val Fragment.screenHeight
-    get() = resources.displayMetrics.heightPixels
+val Fragment?.screenHeight
+    get() = Resources.getSystem().displayMetrics.heightPixels
 
-fun Context.dp2px(dp: Float): Float {
-    val scale = resources.displayMetrics.density
+fun Context?.dp2px(dp: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.density
     return dp * scale + 0.5f
 }
 
-fun Context.px2dp(px: Float): Float {
-    val scale = resources.displayMetrics.density
+fun Context?.px2dp(px: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.density
     return px / scale + 0.5f
 }
 
-fun Context.sp2px(value: Float): Float {
-    val scale = resources.displayMetrics.scaledDensity
+fun Context?.sp2px(value: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.scaledDensity
     return value * scale + 0.5f
 }
 
-fun Context.px2sp(value: Float): Float {
-    val scale = resources.displayMetrics.scaledDensity
+fun Context?.px2sp(value: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.scaledDensity
     return value / scale + 0.5f
 }
 
-fun Fragment.dp2px(dp: Float): Float {
-    val scale = resources.displayMetrics.density
+fun Fragment?.dp2px(dp: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.density
     return dp * scale + 0.5f
 }
 
-fun Fragment.px2dp(px: Float): Float {
-    val scale = resources.displayMetrics.density
+fun Fragment?.px2dp(px: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.density
     return px / scale + 0.5f
 }
 
-fun Fragment.sp2px(value: Float): Float {
-    val scale = resources.displayMetrics.scaledDensity
+fun Fragment?.sp2px(value: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.scaledDensity
     return value * scale + 0.5f
 }
 
-fun Fragment.px2sp(value: Float): Float {
-    val scale = resources.displayMetrics.scaledDensity
+fun Fragment?.px2sp(value: Float): Float {
+    val scale = Resources.getSystem().displayMetrics.scaledDensity
     return value / scale + 0.5f
 }
 
-fun Context.string(id: Int): String {
+fun Context?.string(id: Int): String {
+    if (this == null) return ""
     return this.getString(id)
 }
 
-fun Context.color(id: Int): Int {
+fun Context?.color(id: Int): Int {
+    if (this == null) return 0
     return ContextCompat.getColor(this, id)
 }
 
-fun Context.drawable(id: Int): Drawable? {
+fun Context?.drawable(id: Int): Drawable? {
+    if (this == null) return null
     return ContextCompat.getDrawable(this, id)
 }
 
-fun Context.copyToClipboard(text: String, label: String = "ViewExt") {
+fun Context?.copyToClipboard(text: String, label: String = "ViewExt") {
+    if (this == null) return
     val clipData = ClipData.newPlainText(label, text)
     clipboardManager?.primaryClip = clipData
 }
 
-fun Fragment.string(id: Int): String {
+fun Fragment?.string(id: Int): String {
+    if (this == null) return ""
     return this.getString(id)
 }
 
-fun Fragment.color(id: Int): Int {
-    if (context == null) return 0
+fun Fragment?.color(id: Int): Int {
+    if (this == null) return 0
     return ContextCompat.getColor(context!!, id)
 }
 
@@ -162,7 +176,8 @@ fun Fragment.drawable(id: Int): Drawable? {
     return ContextCompat.getDrawable(context!!, id)
 }
 
-fun Fragment.copyToClipboard(text: String, label: String = "ViewExt") {
+fun Fragment?.copyToClipboard(text: String, label: String = "ViewExt") {
+    if (this == null) return
     val clipData = ClipData.newPlainText(label, text)
     context?.clipboardManager?.primaryClip = clipData
 }
@@ -181,63 +196,78 @@ inline fun <T> T?.notNull(yes: T.() -> Unit, no: () -> Unit) {
 
 inline fun <T, R> T?.notNull(block: T.() -> R): R? = this?.block()
 
-fun TextView.drawableLeft(resId: Int) {
+fun TextView?.drawableLeft(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(context.drawable(resId), null, null, null)
 }
 
-fun TextView.drawableTop(resId: Int) {
+fun TextView?.drawableTop(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, context.drawable(resId), null, null)
 }
 
-fun TextView.drawableRight(resId: Int) {
+fun TextView?.drawableRight(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, null, context.drawable(resId), null)
 }
 
-fun TextView.drawableBottom(resId: Int) {
+fun TextView?.drawableBottom(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, null, null, context.drawable(resId))
 }
 
-fun Button.drawableLeft(resId: Int) {
+fun Button?.drawableLeft(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(context.drawable(resId), null, null, null)
 }
 
-fun Button.drawableTop(resId: Int) {
+fun Button?.drawableTop(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, context.drawable(resId), null, null)
 }
 
-fun Button.drawableRight(resId: Int) {
+fun Button?.drawableRight(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, null, context.drawable(resId), null)
 }
 
-fun Button.drawableBottom(resId: Int) {
+fun Button?.drawableBottom(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, null, null, context.drawable(resId))
 }
 
-fun RadioButton.drawableLeft(resId: Int) {
+fun RadioButton?.drawableLeft(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(context.drawable(resId), null, null, null)
 }
 
-fun RadioButton.drawableTop(resId: Int) {
+fun RadioButton?.drawableTop(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, context.drawable(resId), null, null)
 }
 
-fun RadioButton.drawableRight(resId: Int) {
+fun RadioButton?.drawableRight(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, null, context.drawable(resId), null)
 }
 
-fun RadioButton.drawableBottom(resId: Int) {
+fun RadioButton?.drawableBottom(resId: Int) {
+    if (this == null) return
     this.setCompoundDrawables(null, null, null, context.drawable(resId))
 }
 
-fun Activity.requestLandscape() {
+fun Activity?.requestLandscape() {
+    if (this == null) return
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 }
 
-fun Activity.requestPortrait() {
+fun Activity?.requestPortrait() {
+    if (this == null) return
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 }
 
-fun Activity.fullScreen() {
+fun Activity?.fullScreen() {
+    if (this == null) return
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 全屏显示，隐藏状态栏和导航栏，拉出状态栏和导航栏显示一会儿后消失。
