@@ -61,11 +61,8 @@ fun Context.getPictureDir(): File? {
 /**
  * 删除文件
  */
-fun Context.deleteFile(path: String): Boolean {
-    if (TextUtils.isEmpty(path)) {
-        return false
-    }
-    val file = File(path)
+fun Context.deleteFile(file: File?): Boolean {
+    if (file == null || !file.exists()) return false
     if (file.isFile && file.exists()) {
         try {
             file.delete()
@@ -73,7 +70,6 @@ fun Context.deleteFile(path: String): Boolean {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
     return false
 }
@@ -81,14 +77,14 @@ fun Context.deleteFile(path: String): Boolean {
 /**
  * 递归删除子文件
  */
-fun Context.recursiveDeleteFile(path: String) {
-    val file = File(path)
+fun Context.recursiveDeleteFile(file: File?) {
+    if (file == null || !file.exists()) return
     if (file.exists()) {
         if (file.isDirectory) {
             val files = file.listFiles()
             for (subFile in files) {
                 if (subFile.isDirectory)
-                    recursiveDeleteFile(subFile.path)
+                    recursiveDeleteFile(subFile)
                 else
                     subFile.delete()
             }
@@ -99,7 +95,8 @@ fun Context.recursiveDeleteFile(path: String) {
 /**
  * 递归删除文件和文件夹
  */
-fun Context.recursiveDeleteDir(file: File) {
+fun Context.recursiveDeleteDir(file: File?) {
+    if (file == null || !file.exists()) return
     if (file.isFile) {
         file.delete()
         return
