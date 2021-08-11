@@ -6,19 +6,14 @@
     <application>
 
         <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}"
+            android:name=".EkProvider"
+            android:authorities="${applicationId}.EkProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/ek_filepaths" />
         </provider>
-
-        <provider
-            android:name=".EkProvider"
-            android:authorities="${applicationId}.EkInstaller"
-            android:exported="false" />
 
     </application>
 </manifest>

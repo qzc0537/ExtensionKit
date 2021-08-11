@@ -292,7 +292,7 @@ fun copyFolder(
     }
 }
 
-fun Context.fromFile(file: File, authority: String = packageName): Uri {
+fun Context.fromFile(file: File, authority: String = packageName + ".EkProvider"): Uri {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         FileProvider.getUriForFile(this, authority, file)
     } else {
@@ -415,7 +415,8 @@ fun getPath(context: Context?, uri: Uri?): String? {
             val type = splits[0]
             if ("primary".equals(type, ignoreCase = true)) {
                 path =
-                    Environment.getExternalStorageDirectory().toString() + File.separator + splits[1]
+                    Environment.getExternalStorageDirectory()
+                        .toString() + File.separator + splits[1]
             }
         } else if (isDownloadsDocumentsUri(uri)) {
             val docId = DocumentsContract.getDocumentId(uri)
