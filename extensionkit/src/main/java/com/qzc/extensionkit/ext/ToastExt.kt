@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.hjq.toast.ToastUtils
 import com.qzc.extensionkit.EkConfigs
+import java.lang.ref.WeakReference
 
 /**
  * created by qzc at 2019/09/18 17:17
@@ -22,12 +23,16 @@ fun Context.toast(
     yOffset: Int = EkConfigs.toastYOffset,
     view: View? = null
 ) {
+    var reference: WeakReference<View>? = null
+    if (view != null) {
+        reference = WeakReference(view)
+    }
     if (EkConfigs.toastUseSystem) {
         if (mToast == null) {
             mToast = Toast.makeText(this.applicationContext, text, duration)
         }
-        if (view != null) {
-            mToast?.view = view
+        if (reference?.get() != null) {
+            mToast?.view = reference.get()
         } else {
             if (TextUtils.isEmpty(text)) return
             mToast?.setText(text)
@@ -39,8 +44,8 @@ fun Context.toast(
         if (mToast == null) {
             mToast = ToastUtils.getToast()
         }
-        if (view != null) {
-            mToast?.view = view
+        if (reference?.get() != null) {
+            mToast?.view = reference.get()
         } else {
             if (TextUtils.isEmpty(text)) return
             mToast?.setText(text)
